@@ -11,16 +11,36 @@ app.set('view engine', 'ejs')
 
 // Handlers below:
 
-mongodb://<dbuser>:<dbpassword>@ds019966.mlab.com:19966/starwars
+//mongodb://<dbuser>:<dbpassword>@ds019966.mlab.com:19966/starwars
 
 var db
 
 // setup a server that talks to a mongo database
-MongoClient.connect('mongodb://hun:<password>@ds019806.mlab.com:19806/yabba-ranks', (err, database) => {
+MongoClient.connect('mongodb://goth:goth@ds019806.mlab.com:19806/yabba-ranks', (err   , database) => {
   if (err) return console.log(err)
   db = database
   app.listen(3000, function() {
     console.log('listening on 3000')
+  })
+})
+
+// save data submitted from form to database
+app.post('/quotes', (req, res) => {
+  db.collection('quotes').save(req.body, (err, result) => {
+
+    if (err) return console.log(err)
+
+    console.log('saved to database')
+    res.redirect('/')
+  })
+})
+
+// create an array of quotes from the .ejs template
+app.get('/', (req, res) => {
+  db.collection('quotes').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    // renders index.ejs
+    res.render('index.ejs', {quotes: result})
   })
 })
 
@@ -47,23 +67,3 @@ app.get('/', function(req, res) {
   // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
 });
 */
-
-// save data submitted from form to database
-app.post('/quotes', (req, res) => {
-  db.collection('quotes').save(req.body, (err, result) => {
-
-    if (err) return console.log(err)
-
-    console.log('saved to database')
-    res.redirect('/')
-  })
-})
-
-// create an array of quotes from the .ejs template
-app.get('/', (req, res) => {
-  db.collection('quotes').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    // renders index.ejs
-    res.render('index.ejs', {quotes: result})
-  })
-})

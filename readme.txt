@@ -10,7 +10,7 @@ https://help.github.com/articles/adding-an-existing-project-to-github-using-the-
 https://shapeshed.com/creating-a-basic-site-with-node-and-express/
 
 // cmd>>
-npm init // in folder 
+npm init // in folder
 
 // cmd>>
 echo $null >> server.js // create server file in windows (touch server.js on unix)
@@ -28,11 +28,11 @@ node server.js
 npm install express --save
 
 // install nodemon for constant server refresh
-// cmd>> 
+// cmd>>
 npm install -g nodemon
 
 // save nodemon to your package.json file dependencies
-// npm install nodemon --save-dev 
+// npm install nodemon --save-dev
 
 // activate server.js now with nodemon rather than node e.g.
 // cmd>>
@@ -47,8 +47,11 @@ app.listen(3000, function() {
 })
 
 // activate local server with
-// cmd>> 
+// cmd>>
 node server.js
+
+// kill server in command line:
+// ctrl + C
 
 // open page in your browser
 //browser url>> localhost:3000
@@ -60,12 +63,9 @@ netstat -a -o -n
 taskkill /pid 5440 // if PID is 5440
 
 // add body-parser library to help express handle html form data
-// cmd>> 
+// cmd>>
 npm install body-parser --save
 
 // incorporate body parser into server.js
 // txt >>
 app.use(bodyParser.urlencoded({extended: true}))
-
-
-
